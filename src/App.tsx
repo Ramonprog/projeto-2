@@ -1,13 +1,44 @@
-import { Button } from "antd"
+import { Input } from "antd"
+import { Container, InputArea, TextContent } from "./style"
+import { GithubOutlined } from "@ant-design/icons"
+import { useState } from "react";
+import { useGithubUser } from "./hooks/useGithubUser";
 
 function App() {
+  const { Search } = Input;
+
+  const [username, setUsername] = useState("");
+
+  const { data, isLoading, error, refetch } = useGithubUser(username);
+  console.log("🚀 ~ App ~ data:", data)
+
+  const onSearch = (value: string) => {
+    setUsername(value);
+    refetch();
+  };
+
 
   return (
-    <div style={{ padding: 24 }}>
-      <h1>Meu Projeto com Vite + React + Ant Design</h1>
-      <Button type="primary">Botão Ant Design</Button>
-    </div>
-  )
+    <Container>
+      <TextContent>
+        <GithubOutlined style={{ fontSize: 50 }} />
+        <h1>Perfil</h1>
+        <span>GitHub</span>
+      </TextContent>
+
+      <InputArea>
+        <Search
+          placeholder="Digite um usuário do Github"
+          onSearch={onSearch}
+          enterButton
+        />
+      </InputArea>
+
+      {isLoading && <p>Carregando...</p>}
+      {error && <p>Usuário não encontrado.</p>}
+
+    </Container>
+  );
 }
 
 export default App
