@@ -4,6 +4,7 @@ import { GithubOutlined } from "@ant-design/icons"
 import { useState } from "react";
 import { useGithubUser } from "./hooks/useGithubUser";
 import { SkeletonLoading } from "./components/skeletonloading";
+import { NotFoundCard } from "./components/notFoundCard";
 
 function App() {
   const { Search } = Input;
@@ -36,7 +37,7 @@ function App() {
       </InputArea>
 
       {isLoading && <SkeletonLoading />}
-      {error && <p>Usuário não encontrado.</p>}
+      {error && <NotFoundCard />}
 
     </Container>
   );
