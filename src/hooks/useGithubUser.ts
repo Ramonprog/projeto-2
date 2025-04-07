@@ -1,5 +1,3 @@
-// src/hooks/useGithubUser.ts
-
 import { useQuery } from "@tanstack/react-query";
 
 

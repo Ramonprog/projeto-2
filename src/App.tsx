@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useGithubUser } from "./hooks/useGithubUser";
 import { SkeletonLoading } from "./components/skeletonloading";
 import { NotFoundCard } from "./components/notFoundCard";
+import { UserCardData } from "./components/userCardData";
 
 function App() {
   const { Search } = Input;
@@ -12,13 +13,11 @@ function App() {
   const [username, setUsername] = useState("");
 
   const { data, isLoading, error, refetch } = useGithubUser(username);
-  console.log("🚀 ~ App ~ data:", data)
 
   const onSearch = (value: string) => {
     setUsername(value);
     refetch();
   };
-
 
   return (
     <Container>
@@ -35,6 +34,13 @@ function App() {
           enterButton
         />
       </InputArea>
+      {data && (
+        <UserCardData
+          name={data.name}
+          bio={data.bio}
+          url={data.avatar_url}
+        />
+      )}
 
       {isLoading && <SkeletonLoading />}
       {error && <NotFoundCard />}
