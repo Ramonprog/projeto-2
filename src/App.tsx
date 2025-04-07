@@ -3,6 +3,7 @@ import { Container, InputArea, TextContent } from "./style"
 import { GithubOutlined } from "@ant-design/icons"
 import { useState } from "react";
 import { useGithubUser } from "./hooks/useGithubUser";
+import { SkeletonLoading } from "./components/skeletonloading";
 
 function App() {
   const { Search } = Input;
@@ -34,7 +35,7 @@ function App() {
         />
       </InputArea>
 
-      {isLoading && <p>Carregando...</p>}
+      {isLoading && <SkeletonLoading />}
       {error && <p>Usuário não encontrado.</p>}
 
     </Container>
